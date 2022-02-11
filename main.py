@@ -10,10 +10,12 @@ import model
 
 app = FastAPI()
 
-# db: List[model.ToDo] = [
-#     model.ToDo(id=uuid4(), name='task1', owner='Jeremie', due_date=date(2022, 5, 1), description='I have to do this', priority='High'),
-#     model.ToDo(id=uuid4(), name='task2', owner='Jeremie', due_date=date(2022, 5, 7), description='I have to do that', priority='Medium')
-# ]
+db: List[model.ToDo] = [
+    model.ToDo(id=uuid4(), name='task3', owner='Jeremie', due_date=date(2022, 7, 1), description='I have to do this', priority='Low'),
+    model.ToDo(id=uuid4(), name='task2', owner='Jeremie', due_date=date(2022, 5, 7), description='I have to do that', priority='Medium')
+]
+for td in db:
+    data_base.Add(td)
 
 # get requests definition
 @app.get('/')
