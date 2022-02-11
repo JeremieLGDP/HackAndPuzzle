@@ -1,10 +1,12 @@
 from datetime import date
+from email.mime import multipart
 from typing import List
 from uuid import uuid4
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 import data_base
 import model
+
 
 app = FastAPI()
 
@@ -36,6 +38,13 @@ async def Mod_ToDo(todo: model.ToDo):
 async def Delete_ToDo(todo_id):
     data_base.Delete(todo_id)
     return {data_base.json_list}
+
+
+@app.post("/ToDo/Add")
+async def Add_ToDo(name: str = Form(...), owner: str = Form(...), due_date: date = Form(date), description: str = Form(...), priority: model.Priority = Form(model.Priority)):
+    todo = model.ToDo(name, owner, due_date, description, priority)
+    data_base.Add(todo)
+    return {"id": todo.id}
 
 
 
