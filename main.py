@@ -8,10 +8,10 @@ import model
 
 app = FastAPI()
 
-db: List[model.ToDo] = [
-    model.ToDo(id=uuid4(), name='task1', owner='Jeremie', due_date=date(2022, 5, 1), description='I have to do this', priority='High'),
-    model.ToDo(id=uuid4(), name='task2', owner='Jeremie', due_date=date(2022, 5, 7), description='I have to do that', priority='Medium')
-]
+# db: List[model.ToDo] = [
+#     model.ToDo(id=uuid4(), name='task1', owner='Jeremie', due_date=date(2022, 5, 1), description='I have to do this', priority='High'),
+#     model.ToDo(id=uuid4(), name='task2', owner='Jeremie', due_date=date(2022, 5, 7), description='I have to do that', priority='Medium')
+# ]
 
 # get requests definition
 @app.get('/')
@@ -22,10 +22,15 @@ def home():
 async def Get_ToDo():
     return data_base.json_list
 
-@app.post('/ToDo/List')
+@app.post('/ToDo/Elem')
 async def Add_ToDo(todo: model.ToDo):
     data_base.Add(todo)
     return {'id': todo.id}
+
+@app.post('/ToDo/Mod')
+async def Mod_ToDo(todo: model.ToDo):
+    data_base.Update(todo)
+    return {todo}
 
 
 
