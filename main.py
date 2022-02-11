@@ -32,6 +32,11 @@ async def Mod_ToDo(todo: model.ToDo):
     data_base.Update(todo)
     return {todo}
 
+@app.delete('/ToDo/Elem/{todo_id}')
+async def Delete_ToDo(todo_id):
+    data_base.Delete(todo_id)
+    return {data_base.json_list}
+
 
 
 if __name__ == '__ main__':
